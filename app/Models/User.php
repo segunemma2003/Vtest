@@ -6,6 +6,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Http\Request; 
 use Laravel\Passport\HasApiTokens;
 use Hashids;
 class User extends Authenticatable
@@ -22,7 +23,10 @@ class User extends Authenticatable
     //     'email',
     //     'password',
     // ];
+
+
 protected $guarded=['id'];
+
     /**
      * The attributes that should be hidden for arrays.
      *
@@ -41,26 +45,6 @@ protected $guarded=['id'];
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-    protected static function boot()
-    {
-        $lastUser=User::lastest()->first();
-        $count=0;
-        if($lastUser != null){
-            $count=$lastUser->id + 1;
-        }
-        User::saving(function ($model) {
-            if($count)
-            $model->referal_id=Hashids::encode($count);
-            $model->account_number=Hashids::connection('alternative')->encode($count);
-            if($this->refered_by != null){
-                $user =User::where('referal_id','=',$this->refered_by)->first();
-                if($user){
-                    $user->balance=$user->balance+1000;
-                    $user->save();
-                }
-            }
-
-        });
-    }
+    
   
 }

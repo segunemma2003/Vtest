@@ -2327,7 +2327,7 @@ __webpack_require__.r(__webpack_exports__);
         password: "",
         c_password: "",
         image: "",
-        referal_id: ""
+        refered_by: ""
       }
     };
   },
@@ -39174,8 +39174,8 @@ var render = function() {
           {
             name: "model",
             rawName: "v-model",
-            value: _vm.user.email,
-            expression: "user.email"
+            value: _vm.user.name,
+            expression: "user.name"
           }
         ],
         staticClass: "form-control",
@@ -39184,22 +39184,16 @@ var render = function() {
           id: "exampleInputEmail1",
           "aria-describedby": "emailHelp"
         },
-        domProps: { value: _vm.user.email },
+        domProps: { value: _vm.user.name },
         on: {
           input: function($event) {
             if ($event.target.composing) {
               return
             }
-            _vm.$set(_vm.user, "email", $event.target.value)
+            _vm.$set(_vm.user, "name", $event.target.value)
           }
         }
-      }),
-      _vm._v(" "),
-      _c(
-        "small",
-        { staticClass: "form-text text-muted", attrs: { id: "emailHelp" } },
-        [_vm._v("We'll never share your email with anyone else.")]
-      )
+      })
     ]),
     _vm._v(" "),
     _c("div", { staticClass: "form-group" }, [
@@ -39231,13 +39225,7 @@ var render = function() {
             _vm.$set(_vm.user, "email", $event.target.value)
           }
         }
-      }),
-      _vm._v(" "),
-      _c(
-        "small",
-        { staticClass: "form-text text-muted", attrs: { id: "emailHelp" } },
-        [_vm._v("We'll never share your email with anyone else.")]
-      )
+      })
     ]),
     _vm._v(" "),
     _c("div", { staticClass: "form-group" }, [
@@ -39250,8 +39238,8 @@ var render = function() {
           {
             name: "model",
             rawName: "v-model",
-            value: _vm.user.email,
-            expression: "user.email"
+            value: _vm.user.refered_by,
+            expression: "user.refered_by"
           }
         ],
         staticClass: "form-control",
@@ -39260,22 +39248,16 @@ var render = function() {
           id: "exampleInputEmail1",
           "aria-describedby": "emailHelp"
         },
-        domProps: { value: _vm.user.email },
+        domProps: { value: _vm.user.refered_by },
         on: {
           input: function($event) {
             if ($event.target.composing) {
               return
             }
-            _vm.$set(_vm.user, "email", $event.target.value)
+            _vm.$set(_vm.user, "refered_by", $event.target.value)
           }
         }
-      }),
-      _vm._v(" "),
-      _c(
-        "small",
-        { staticClass: "form-text text-muted", attrs: { id: "emailHelp" } },
-        [_vm._v("We'll never share your email with anyone else.")]
-      )
+      })
     ]),
     _vm._v(" "),
     _c("div", { staticClass: "form-group row" }, [
@@ -39294,16 +39276,69 @@ var render = function() {
         ]),
         _vm._v(" "),
         _c("input", {
+          ref: "image",
           staticClass: "form-control",
-          attrs: { type: "file", id: "exampleInputPassword1" },
+          attrs: { type: "file", refs: "image", id: "exampleInputPassword1" },
           on: { change: _vm.onImageChange }
         })
       ])
     ]),
     _vm._v(" "),
-    _vm._m(0),
+    _c("div", { staticClass: "form-group" }, [
+      _c("label", { attrs: { for: "exampleInputPassword1" } }, [
+        _vm._v("Password")
+      ]),
+      _vm._v(" "),
+      _c("input", {
+        directives: [
+          {
+            name: "model",
+            rawName: "v-model",
+            value: _vm.user.password,
+            expression: "user.password"
+          }
+        ],
+        staticClass: "form-control",
+        attrs: { type: "password", id: "exampleInputPassword1" },
+        domProps: { value: _vm.user.password },
+        on: {
+          input: function($event) {
+            if ($event.target.composing) {
+              return
+            }
+            _vm.$set(_vm.user, "password", $event.target.value)
+          }
+        }
+      })
+    ]),
     _vm._v(" "),
-    _vm._m(1),
+    _c("div", { staticClass: "form-group" }, [
+      _c("label", { attrs: { for: "exampleInputPassword1" } }, [
+        _vm._v("Verify Password")
+      ]),
+      _vm._v(" "),
+      _c("input", {
+        directives: [
+          {
+            name: "model",
+            rawName: "v-model",
+            value: _vm.user.c_password,
+            expression: "user.c_password"
+          }
+        ],
+        staticClass: "form-control",
+        attrs: { type: "password", id: "exampleInputPassword1" },
+        domProps: { value: _vm.user.c_password },
+        on: {
+          input: function($event) {
+            if ($event.target.composing) {
+              return
+            }
+            _vm.$set(_vm.user, "c_password", $event.target.value)
+          }
+        }
+      })
+    ]),
     _vm._v(" "),
     _c(
       "button",
@@ -39316,38 +39351,7 @@ var render = function() {
     )
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form-group" }, [
-      _c("label", { attrs: { for: "exampleInputPassword1" } }, [
-        _vm._v("Password")
-      ]),
-      _vm._v(" "),
-      _c("input", {
-        staticClass: "form-control",
-        attrs: { type: "password", id: "exampleInputPassword1" }
-      })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form-group" }, [
-      _c("label", { attrs: { for: "exampleInputPassword1" } }, [
-        _vm._v("Verify Password")
-      ]),
-      _vm._v(" "),
-      _c("input", {
-        staticClass: "form-control",
-        attrs: { type: "password", id: "exampleInputPassword1" }
-      })
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -100246,7 +100250,7 @@ var actions = {
       password: user.password
     }).then(function (res) {
       if (Response.data.access_token) {
-        localStorage.setItem("_token", response.data.access_token);
+        localStorage.setItem("_token", response.data.data.token);
       }
 
       console.log(res);
@@ -100264,10 +100268,10 @@ var actions = {
       c_password: user.c_password,
       name: user.name,
       image: user.image,
-      referal_id: user.referal_id
+      refered_by: user.refered_by
     }).then(function (res) {
       if (Response.data.access_token) {
-        localStorage.setItem("_token", response.data.access_token);
+        localStorage.setItem("_token", response.data.data.token);
       }
 
       console.log(res);

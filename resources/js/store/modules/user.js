@@ -26,7 +26,7 @@ const actions ={
         })
         .then(res=>{
             if(Response.data.access_token){
-                localStorage.setItem("_token",response.data.access_token)
+                localStorage.setItem("_token",response.data.data.token)
             }
             console.log(res)
             window.location.replace('/home');
@@ -41,11 +41,11 @@ const actions ={
            c_password:user.c_password,
            name:user.name,
            image:user.image,
-           referal_id:user.referal_id
+           refered_by:user.refered_by
         })
         .then(res=>{
             if(Response.data.access_token){
-                localStorage.setItem("_token",response.data.access_token)
+                localStorage.setItem("_token",response.data.data.token)
             }
             console.log(res)
             window.location.replace('/home');
