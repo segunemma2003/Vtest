@@ -3,7 +3,8 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
-
+use App\Models\SchelduledTask;
+use App\Services\AccountServices;
 class CustomCommand extends Command
 {
     /**
@@ -35,8 +36,14 @@ class CustomCommand extends Command
      *
      * @return int
      */
-    public function handle()
+    public function handle(AccountServices $account_services)
     {
-        return 0;
+        $data=SchelduledTask::where('transfer_time',now())->get();
+        foreach($data as $dat){
+            $sender=$dat->sender;
+            $receiver=$dat->receiver;
+            $amount=$dat->amount;
+            $account_services->sendJob($sender,$receiver,$amount);
+        }
     }
 }

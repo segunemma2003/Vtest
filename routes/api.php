@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\UserController;
+use App\Http\Controllers\API\AccountController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -21,5 +22,6 @@ use App\Http\Controllers\API\UserController;
 Route::post('login', [UserController::class,'login']);
 Route::post('register', [UserController::class,'register']);
 Route::group(['middleware' => 'auth:api'], function(){
-Route::post('details', [UserController::class,'details']);
+Route::get('details', [UserController::class,'details']);
+Route::post('balance', [AccountController::class,'send']);
 });

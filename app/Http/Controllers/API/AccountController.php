@@ -13,18 +13,28 @@ class AccountController extends Controller
     }
 
 
-    public function sendNow(Request $request)
-    {
-        $balance=$this->account_services->sendNow($request->all());
-        if (isset($balance['status']) && !$balance['status']) {
-            return $this->badRequest($balance['message']);
-        }
+    // public function sendNow(Request $request)
+    // {
+    //     $balance=$this->account_services->sendNow($request->all());
+    //     if (isset($balance['status']) && !$balance['status']) {
+    //         return $this->badRequest($balance['message']);
+    //     }
 
-        return $this->success($balance);
-    }
-    public function sendLater(Request $request)
+    //     return $this->success($balance);
+    // }
+    public function send(Request $request)
     {   
-        $balance=$this->account_services->sendLater($request->all());
+        $validator=$this->validate($request,[
+            "amount"=>"required",
+            "account_number"=>"required",
+            "transferTime"=>"nullable",
+            "immediate"=>"required"
+
+        ]);
+        if($validator->fails()){
+            return $this->badRequest($validator->errors);
+        }
+        $balance=$this->account_services->sendNow($request->all());
         if (isset($balance['status']) && !$balance['status']) {
             return $this->badRequest($balance['message']);
         }

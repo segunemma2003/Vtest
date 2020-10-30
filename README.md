@@ -10,6 +10,7 @@ This is a simple application for transfer of funds with embedded simple referer 
 - run php artisan passport:install
 - run php artisan migrate
 - run php artisan serve
+- run php artisan scheldule:run 
 
 
 this project is a test
