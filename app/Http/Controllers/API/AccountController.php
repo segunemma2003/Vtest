@@ -24,16 +24,24 @@ class AccountController extends Controller
     // }
     public function send(Request $request)
     {   
-        $validator=$this->validate($request,[
-            "amount"=>"required",
-            "account_number"=>"required",
-            "transferTime"=>"nullable",
-            "immediate"=>"required"
+        
+       
+    //     $validator=$request->validate([
+    //         "amount_to_send"=>"required",
+    //         "account_number"=>"required",
+    //         "transferTime"=>"nullable",
+    //         "immediate"=>"required"
 
-        ]);
-        if($validator->fails()){
-            return $this->badRequest($validator->errors);
-        }
+    //     ]);
+    // //    dd($validator);
+       
+    //     if($validator->fails()){
+    //         return $this->badRequest($validator->errors);
+    //     }
+    //     return response([
+    //         "it worked"
+    //     ],200);
+        
         $balance=$this->account_services->sendNow($request->all());
         if (isset($balance['status']) && !$balance['status']) {
             return $this->badRequest($balance['message']);

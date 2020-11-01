@@ -10,31 +10,32 @@ class AccountServices
     protected $user;
     public function __construct()
     {
-        $this->user=auth()->check()?auth()->user():null;
+        $this->user=auth()->user();
     }
 
     public function makeTransfer($amount,$receiver)
     {
         $this->user->balance =$this->user->balance - floatval($amount);
 
-        $receiver=$receiver->balance+floatval($amount);
+        $receiver->balance=$receiver->balance+floatval($amount);
         $this->user->save();
         $receiver->save();
         return true;
     }
     public function dTransfer($data)
     {
-        $receiver=User::where('account_number','=',$data->account_number)->first();
+        
+        $receiver=User::where('account_number','=',$data['account_number'])->first();
                     if($receiver){
-                        if($data->immediate){
-                            $this->makeTransfer($data->amount_to_send,$receiver);
+                        if($data['immediate']){
+                            $this->makeTransfer($data['amount_to_send'],$receiver);
                             return [
                                 "status"=>true,
                                 "message"=>"Money is Sent",
                                 "data"=>$this->user
                             ];
                         }else{
-                            $this->sendLater($data->amount_to_send,$receiver,$data->transferTime);
+                            $this->sendLater($data['amount_to_send'],$receiver,$data['transferTime']);
                             return [
                                 "status"=>true,
                                 "message"=>"Money is Sent",
@@ -50,8 +51,9 @@ class AccountServices
     }
     public function sendNow($data)
     {
-        if($data->amount_to_send >= $this->user->balance){
-            if($data->amount_to_send > 50000){
+        $this->user=auth()->user();
+        if($data['amount_to_send'] >= $this->user->balance){
+            if($data['amount_to_send'] > 50000){
                 if($this->user->verified){
                     $this->dTransfer($data);
                 }
@@ -73,11 +75,12 @@ class AccountServices
     }
     public function sendLater($data,$receiver,$time)
     {
+        
         $task=new SchelduledTask([
             "sender"=>$this->user->account_number,
             "receiver"=>$receiver,
             "transfer_time"=>$time,
-            "amount"=>$data->amount
+            "amount"=>$data
         ]);
         if($task->save()){
             return true;
