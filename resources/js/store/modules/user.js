@@ -1,9 +1,10 @@
 import axios from "axios";
+import validatableModule from "vuex-module-validatable-state";
+
 
 const state={
     user:{
-        email:"test@g.com",
-        isLoggedIn:false
+        
     },
     color:"red"
 };
@@ -12,30 +13,32 @@ const actions ={
     logout(){
         localStorage.clear()
     },
-    getDetails(){
+    sendMoney({commit,state},data){
+        axios.post('/balane',{
+            "amount_to_send":data.amount_to_send,
+            "account_number":data.account_number,
+            "immediate":data.immediate,
+            "transferTime":data.transferTime
+        });    
+    },
+    getDetails({commit}){
         axios.get('/api/details')
         .then(response=>{
-            commit('setUser',response.data);
+            localStorage.setItem('user_details',JSON.stringify(response.data.data))
+            console.log(commit('setUser',response.data.data));
         })
-        .catch(err=>console.log(err.response.data));
+        .catch(err=>console.log(err));
     },
     loginUser({},user){
-        axios.post("/api/login",{
+        return axios.post("/api/login",{
            email:user.email,
            password:user.password 
         })
-        .then(res=>{
-            if(Response.data.access_token){
-                localStorage.setItem("_token",response.data.data.token)
-            }
-            console.log(res)
-            window.location.replace('/home');
-        }).catch((err)=>{
-            console.log(err.response.data.message)
-        });
+        
     },
     registerUser({},user){
-        axios.post("/api/register",{
+        console.log(user);
+       return axios.post("/api/register",{
            email:user.email,
            password:user.password,
            c_password:user.c_password,
@@ -43,21 +46,16 @@ const actions ={
            image:user.image,
            refered_by:user.refered_by
         })
-        .then(res=>{
-            if(Response.data.access_token){
-                localStorage.setItem("_token",response.data.data.token)
-            }
-            console.log(res)
-            window.location.replace('/home');
-        }).catch((err)=>{
-            console.log(err.response.data.message)
-        });
+        
     }
 }
 const mutations={
     setUser(state,data) {
+        console.log("s",data)
         state.user=data;
-    }
+       
+    },
+
 }
 
 

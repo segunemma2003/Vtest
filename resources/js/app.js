@@ -9,9 +9,11 @@ import store from './store';
 import router from './router';
 // import Vuetify from 'vueti fy';
 import Vuetify from 'vuetify'
- 
+import VueSweetalert2 from 'vue-sweetalert2';
 // import Vuetify from '../plugins/vuetify';
 window.Vue = require('vue');
+Vue.use(VueSweetalert2);
+
 Vue.use(Vuetify);
 import 'vuetify/dist/vuetify.min.css'
 /**

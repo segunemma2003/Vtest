@@ -117,6 +117,7 @@
     }),
 
      computed: {
+         
          loggedIn:{
              get(){
                  return this.$store.state.user.loggedIn
@@ -135,8 +136,8 @@
         }
     }, 
     created(){
-        axios.defaults.headers.common['Authourization']="Bearer "+ localStorage.getItem('_token');
-        this.$store.dispatch('user/getUser');
+        axios.defaults.headers.common['Authorization']="Bearer "+ localStorage.getItem('_token');
+        this.$store.dispatch('user/getDetails');
     }
   }
 </script>

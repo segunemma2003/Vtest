@@ -76,7 +76,8 @@ class AccountServices
         $task=new SchelduledTask([
             "sender"=>$this->user->account_number,
             "receiver"=>$receiver,
-            "transfer_time"=>$time
+            "transfer_time"=>$time,
+            "amount"=>$data->amount
         ]);
         if($task->save()){
             return true;
