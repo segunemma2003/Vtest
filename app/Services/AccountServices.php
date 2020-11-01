@@ -52,7 +52,7 @@ class AccountServices
     public function sendNow($data)
     {
         $this->user=auth()->user();
-        if($data['amount_to_send'] >= $this->user->balance){
+        if($data['amount_to_send'] <= $this->user->balance){
             if($data['amount_to_send'] > 50000){
                 if($this->user->verified){
                     $this->dTransfer($data);

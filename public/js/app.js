@@ -2147,7 +2147,10 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       if (this.validate(this.data)) {
+        console.log(this.data);
         this.$store.dispatch('user/sendMoney', this.data).then(function (res) {
+          console.log(res);
+
           _this.$swal({
             "type": "Success",
             "text": "Money is Sent"
@@ -2163,7 +2166,7 @@ __webpack_require__.r(__webpack_exports__);
     validate: function validate(data) {
       this.errors = [];
 
-      if (data.amount_to_send && data.account_number && data.immediate && data.transferTime) {
+      if (data.amount_to_send && data.account_number || data.amount_to_send && data.account_number && data.immediate == false && data.transferTime) {
         return true;
       }
 
@@ -2176,7 +2179,7 @@ __webpack_require__.r(__webpack_exports__);
       }
 
       if (!data.immediate) {
-        this.errors.push("Please choose if immediate");
+        this.errors.push("Please choose immediate");
       }
 
       if (data.immediate == false && !data.transferTime) {
@@ -2578,18 +2581,18 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
                 _context.next = 3;
                 return _this.$store.dispatch('user/registerUser', _this.user).then(function (res) {
-                  if (res.data.token) {
+                  if (res.data.data.token) {
+                    localStorage.setItem("_token", res.data.data.token);
                     localStorage.setItem("_token", res.data.token);
+                    console.log(res);
+
+                    _this.$swal({
+                      "type": 'success',
+                      'text': 'You have successfully registered'
+                    });
+
+                    window.location.replace('/home');
                   }
-
-                  console.log(res);
-
-                  _this.$swal({
-                    "type": 'success',
-                    'text': 'You have successfully registered'
-                  });
-
-                  window.location.replace('/home');
                 })["catch"](function (err) {
                   if (err.response.data.error) {
                     if (err.response.data.error.email) {
@@ -46648,7 +46651,7 @@ var render = function() {
         ],
         staticClass: "form-control",
         attrs: {
-          type: "number",
+          type: "text",
           id: "exampleInputEmail1",
           "aria-describedby": "emailHelp"
         },
@@ -46674,19 +46677,19 @@ var render = function() {
           {
             name: "model",
             rawName: "v-model",
-            value: _vm.data.amount,
-            expression: "data.amount"
+            value: _vm.data.amount_to_send,
+            expression: "data.amount_to_send"
           }
         ],
         staticClass: "form-control",
         attrs: { type: "number", id: "exampleInputPassword1" },
-        domProps: { value: _vm.data.amount },
+        domProps: { value: _vm.data.amount_to_send },
         on: {
           input: function($event) {
             if ($event.target.composing) {
               return
             }
-            _vm.$set(_vm.data, "amount", $event.target.value)
+            _vm.$set(_vm.data, "amount_to_send", $event.target.value)
           }
         }
       })
@@ -108565,6 +108568,7 @@ function _objectDestructuringEmpty(obj) { if (obj == null) throw new TypeError("
 
 var state = {
   user: {},
+  data: {},
   color: "red"
 };
 var getters = {};
@@ -108573,9 +108577,10 @@ var actions = {
     localStorage.clear();
   },
   sendMoney: function sendMoney(_ref, data) {
-    var commit = _ref.commit,
-        state = _ref.state;
-    axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/balane', {
+    _objectDestructuringEmpty(_ref);
+
+    console.log(data.amount_to_send);
+    return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/balance', {
       "amount_to_send": data.amount_to_send,
       "account_number": data.account_number,
       "immediate": data.immediate,

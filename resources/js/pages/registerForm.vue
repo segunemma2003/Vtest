@@ -92,13 +92,15 @@ export default {
             if(this.validate(this.user)){
                await this.$store.dispatch('user/registerUser',this.user)
                 .then(res=>{
-                    if(res.data.token){
+                    if(res.data.data.token){
+                        localStorage.setItem("_token",res.data.data.token)
                     localStorage.setItem("_token",res.data.token)
-                    }
+                    
                         console.log(res)
                         this.$swal({"type":'success',
                         'text':'You have successfully registered'});
                         window.location.replace('/home');
+                    }
                     }).catch((err)=>{
                         if(err.response.data.error){
                                 if(err.response.data.error.email ){

@@ -8,12 +8,12 @@
   </p>
         <div class="form-group">
             <label for="exampleInputEmail1">Account Number</label>
-            <input type="number" v-model="data.account_number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+            <input type="text" v-model="data.account_number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
            
         </div>
         <div class="form-group">
             <label for="exampleInputPassword1">Amount</label>
-            <input type="number" v-model="data.amount" class="form-control" id="exampleInputPassword1">
+            <input type="number" v-model="data.amount_to_send" class="form-control" id="exampleInputPassword1">
         </div>
         <div class="form-group">
             <label for="exampleInputPassword1">Immediate </label>
@@ -63,8 +63,10 @@ export default {
         send()
         {
             if(this.validate(this.data)){
+                console.log(this.data)
                  this.$store.dispatch('user/sendMoney',this.data)
                  .then(res=>{
+                     console.log(res);
                      this.$swal({
                          "type":"Success",
                          "text": "Money is Sent"
@@ -80,7 +82,7 @@ export default {
         },
          validate(data){
             this.errors=[];
-             if (data.amount_to_send && data.account_number && data.immediate && data.transferTime) {
+             if ((data.amount_to_send && data.account_number)||(data.amount_to_send && data.account_number && (data.immediate==false && data.transferTime))) {
             return true;
             }
             if(!data.amount_to_send){
@@ -90,7 +92,7 @@ export default {
                 this.errors.push("Please type in your account number");
             }
             if(!data.immediate){
-                this.errors.push("Please choose if immediate");
+                this.errors.push("Please choose immediate");
             }
             if(data.immediate==false && !data.transferTime){
                 this.errors.push("Please type in transfer time");

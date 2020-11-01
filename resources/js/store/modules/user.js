@@ -6,6 +6,9 @@ const state={
     user:{
         
     },
+    data:{
+
+    },
     color:"red"
 };
 const getters= {}
@@ -13,13 +16,15 @@ const actions ={
     logout(){
         localStorage.clear()
     },
-    sendMoney({commit,state},data){
-        axios.post('/balane',{
+    sendMoney({},data){
+        console.log(data.amount_to_send);
+        
+       return axios.post('/api/balance',{
             "amount_to_send":data.amount_to_send,
             "account_number":data.account_number,
             "immediate":data.immediate,
             "transferTime":data.transferTime
-        });    
+        })    
     },
     getDetails({commit}){
         axios.get('/api/details')
