@@ -59,7 +59,7 @@ class AccountServices
                 }
                 return [
                     'status'=>false,
-                    'message'=>'You have not yet been verified'
+                    'message'=>'You have not yet been verified,please upload your id for proper verification'
                 ];
             }else{
                 $this->dTransfer($data);
