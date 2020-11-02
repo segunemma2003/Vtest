@@ -2016,6 +2016,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2038,7 +2040,7 @@ __webpack_require__.r(__webpack_exports__);
         to: '/account',
         model: true
       }, {
-        icon: 'mdi-power',
+        icon: 'mdi-logout',
         text: 'Log Out',
         click: 'logout',
         to: "#"
@@ -2060,7 +2062,11 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     logout: function logout() {
       this.$store.dispatch('user/logout');
-      window.location.href = "/login";
+    },
+    menuaction: function menuaction(as) {
+      if (as == 'logout') {
+        this.logout();
+      }
     }
   },
   created: function created() {
@@ -46510,7 +46516,15 @@ var render = function() {
                       )
                     : _c(
                         "v-list-item",
-                        { key: item.text, attrs: { to: item.to } },
+                        {
+                          key: item.text,
+                          attrs: { to: item.to },
+                          on: {
+                            click: function($event) {
+                              return _vm.menuaction(item.click)
+                            }
+                          }
+                        },
                         [
                           _c(
                             "v-list-item-action",
@@ -108575,6 +108589,7 @@ var getters = {};
 var actions = {
   logout: function logout() {
     localStorage.clear();
+    window.location.replace("/login");
   },
   sendMoney: function sendMoney(_ref, data) {
     _objectDestructuringEmpty(_ref);

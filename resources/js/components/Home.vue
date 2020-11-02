@@ -33,6 +33,7 @@
               v-for="(child, i) in item.children"
               :key="i"
               :to="child.to"
+             
             >
               <v-list-item-action v-if="child.icon">
                 <v-icon>{{ child.icon }}</v-icon>
@@ -48,6 +49,7 @@
             v-else
             :key="item.text"
             :to="item.to"
+            @click="menuaction(item.click)"
           >
             <v-list-item-action>
               <v-icon>{{ item.icon }}</v-icon>
@@ -112,7 +114,7 @@
           model: true,
 
         },
-        { icon: 'mdi-power', text: 'Log Out', click:'logout', to:"#" },
+        { icon: 'mdi-logout', text: 'Log Out', click:'logout', to:"#" },
       ],
     }),
 
@@ -132,7 +134,13 @@
     methods: {
         logout(){
             this.$store.dispatch('user/logout');
-            window.location.href="/login"
+           
+        },
+        menuaction(as){
+            if(as=='logout'){
+                this.logout();
+            }
+            
         }
     }, 
     created(){

@@ -15,6 +15,7 @@ const getters= {}
 const actions ={
     logout(){
         localStorage.clear()
+        window.location.replace("/login");
     },
     sendMoney({},data){
         console.log(data.amount_to_send);
