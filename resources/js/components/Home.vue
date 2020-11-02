@@ -143,7 +143,7 @@
             
         }
     }, 
-    created(){
+    beforeMount(){
         axios.defaults.headers.common['Authorization']="Bearer "+ localStorage.getItem('_token');
         this.$store.dispatch('user/getDetails');
     }

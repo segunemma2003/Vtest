@@ -2069,7 +2069,7 @@ __webpack_require__.r(__webpack_exports__);
       }
     }
   },
-  created: function created() {
+  beforeMount: function beforeMount() {
     axios__WEBPACK_IMPORTED_MODULE_1___default.a.defaults.headers.common['Authorization'] = "Bearer " + localStorage.getItem('_token');
     this.$store.dispatch('user/getDetails');
   }
@@ -2587,9 +2587,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
                 _context.next = 3;
                 return _this.$store.dispatch('user/registerUser', _this.user).then(function (res) {
+                  console.log(res.data.data);
+
                   if (res.data.data.token) {
                     localStorage.setItem("_token", res.data.data.token);
-                    localStorage.setItem("_token", res.data.token);
                     console.log(res);
 
                     _this.$swal({
@@ -2597,7 +2598,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                       'text': 'You have successfully registered'
                     });
 
-                    window.location.replace('/home');
+                    window.location.replace('/home#/dashboard');
                   }
                 })["catch"](function (err) {
                   if (err.response.data.error) {
